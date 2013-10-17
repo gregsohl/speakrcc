@@ -1,0 +1,102 @@
+﻿<nav class="navbar navbar-inverse" role="navigation">
+    <!-- Brand and toggle get grouped for better mobile display -->
+    <div class="navbar-header">
+        <a class="navbar-brand" href="#">Speakr</a>
+    </div>
+
+    <!-- Collect the nav links, forms, and other content for toggling -->
+    <div class="collapse navbar-collapse navbar-ex1-collapse">
+        <ul class="nav navbar-nav">
+            <li class="active"><a href="#">Leaderboard</a></li>
+        </ul>
+        <ul class="nav navbar-nav navbar-right">
+            <li><a href="http://twitter.com/tccodecamp">@@tccodecamp</a></li>
+            <li><a href="http://twitter.com/speakrcc">@@speakrcc</a></li>
+            <li data-bind="visible: !loggedInUserName()"><a href="#" data-bind="click: login">Login</a></li>
+            <li data-bind="visible: loggedInUserName"><a href="#" title="You're signed in. Click to logout." data-bind="    click: logout">@ViewBag.UserName</a></li>
+        </ul>
+    </div>
+</nav>
+
+<div class="jumbotron">
+    <div class="container">
+        <h1>Speakr.cc <a href="https://twitter.com/search?q=%23tccc15" class="subtitle">#tccc15</a></h1>
+        <p class="description">Rate the talks at Code Camp!</p>
+    </div>
+</div>
+
+<div class="container">
+    <div class="row">
+        <input type="text" class="form-control input-lg" placeholder="Type a talk name, speaker, or time" data-bind="value: searchText, valueUpdate: 'afterkeyup'" />
+    </div>
+</div>
+<div class="container talks-container" data-bind="template: { foreach: allTalks, afterRender: $root.afterRender.bind($root) }, visible: allTalks().length > 0">
+    <div class="talk row" data-bind="visible: isVisible">
+        <div class="col-md-2">
+            <img class="img-circle speaker-image" data-toggle="tooltip" data-bind="attr: { src: photoUrl }" />
+        </div>
+        <div class="col-md-9">
+            <div class="row">
+                <h1 style="display:inline-block;" data-bind="text: title"></h1>
+                <h2 class="text-info">
+                    <span>Rank:</span>
+                    <span class="text-success" data-bind="visible: totalRanking() > 0">+</span>
+                    <span data-bind="text: totalRanking, css: { 'text-success': totalRanking() > 0, 'text-danger': totalRanking() < 0 }"></span>
+                </h2>
+            </div>
+            <div class="row">
+                <span class="speaker-name text-info " data-bind="text: author"></span>
+                <a class="speaker-name" target="_blank" href="#" data-bind="visible: authorTwitter, text: authorTwitter, attr: { href: 'http://twitter.com/' + authorTwitter }"></a>
+            </div>
+            <div class="row">
+                <span class="text-muted">at</span>
+                <span data-bind="text: time"></span>
+                <span class="text-muted">in room</span>
+                <span data-bind="text: room"></span>
+            </div>
+            <div class="row" style="padding-bottom: 10px; padding-top: 10px;">
+                <p class="description" data-bind="text: description"></p>
+            </div>
+            <div class="row">
+                <div class="star-ranking"></div>
+            </div>
+            <div class="row">
+                <span data-bind="text: '(' + voteCount() + ' user' + (voteCount() !== 1 ? 's voted)' : ' voted)')"></span>
+            </div>
+            <div class="row" data-bind="visible: youVoted() !== 0">
+                <span class="text-muted">You voted</span>
+                <span data-bind="text: youVoted"></span>
+            </div>
+        </div>
+    </div>
+</div>
+
+ 
+
+<div id="cannotVoteYet" class="modal fade">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title">Hold up there, Bucko!</h4>
+            </div>
+            <div class="modal-body">
+                <p>You're voting for a talk before it has taken place? <br /><br />Tsk, tsk.&hellip;</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" data-dismiss="modal">I'm ashamed of myself.</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="~/Scripts/speakr.js"></script>
+<script src="~/Scripts/talk.js"></script>
+<script type="text/javascript">
+
+    $(function () {
+        var viewModel = new speakr("@ViewBag.UserName");
+        ko.applyBindings(viewModel);
+    });
+
+</script>

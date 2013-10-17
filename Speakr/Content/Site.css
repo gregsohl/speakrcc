@@ -1,0 +1,63 @@
+﻿.jumbotron h1
+{
+    font-size: 72px;
+    font-family: 'Press Start 2P', cursive;
+    -webkit-text-shadow: 1px 1px 3px rgb(90,90,90);
+    text-shadow: 1px 1px 3px rgb(90,90,90);
+}
+
+.jumbotron h1::first-letter {
+    color: #317EAC;
+    -webkit-text-shadow: 3px 3px 5px rgb(90,90,90);
+    text-shadow: 3px 3px 5px rgb(90,90,90);
+}
+
+.jumbotron .subtitle {
+    font-family: 'Press Start 2P', cursive;
+    font-size: 34px;
+    -webkit-text-shadow: 1px 1px 3px rgb(90,90,90);
+    text-shadow: 1px 1px 3px rgb(90,90,90);
+}
+
+.jumbotron .description {
+    font-family: 'Nobile', sans-serif;
+}
+
+.talks-container {
+    margin-top: 30px;
+}
+
+.speaker-image {
+    width: 150px;
+    height: 150px;
+    box-shadow: 1px 1px 5px black;
+    margin-right: 20px;
+    margin-top: 20px;
+}
+
+.popover {
+    max-width: 500px;
+    width: 500px;
+}
+
+.talk {
+    margin-bottom: 40px;
+}
+
+.talk .description {
+    font-size: 16px;
+    font-family: 'Nobile', sans-serif;
+}
+
+#star {
+}
+
+.speaker-name {
+    font-size: 20px;
+}
+
+body {
+    background-color: #fff;
+    color: #333;
+    margin: 0 20px 0 20px;
+}
