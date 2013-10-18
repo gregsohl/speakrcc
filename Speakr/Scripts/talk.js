@@ -28,8 +28,16 @@ var talk = (function () {
 
     talk.prototype.vote = function (up) {
         var _this = this;
+        if (up && this.youUpVoted()) {
+            return;
+        }
+
+        if (!up && this.youDownVoted()) {
+            return;
+        }
+
         var adjustment = 1;
-        if (up && this.youDownVoted() || !up && this.youUpVoted()) {
+        if (this.youDownVoted() || this.youUpVoted()) {
             adjustment = 2;
         }
 
