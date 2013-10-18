@@ -21,6 +21,7 @@ namespace Speakr.Controllers
                 var talks = session
                     .Query<Talk>()
                     .OrderByDescending(d => d.Ranking)
+                    .ThenBy(t => t.DateTime)
                     .ToArray();
 
                 // Set the "YouUpVoted" and "YouDownVoted" value if we've got a user.
