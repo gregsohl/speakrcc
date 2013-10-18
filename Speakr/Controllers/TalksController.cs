@@ -51,11 +51,13 @@ namespace Speakr.Controllers
                     throw new InvalidOperationException("No user session Id.");
                 }
 
-                var user = session.Query<User>().FirstOrDefault(u => u.SessionId == userSessionId);
+                var user = session
+                    .Query<User>()
+                    .Customize(x => x.WaitForNonStaleResultsAsOfNow(TimeSpan.FromSeconds(2)))
+                    .FirstOrDefault(u => u.SessionId == userSessionId);
                 if (user == null)
                 {
                     user = new User { SessionId = userSessionId };
-                    session.Store(user);
                 }
 
                 // Update the talk and up/down vote info.
@@ -75,6 +77,8 @@ namespace Speakr.Controllers
                         {
                             talk.DownVotes -= 1;
                         }
+
+                        existingRating.UpVote = talkRating.UpVote;
                     }
                     else
                     {
@@ -102,6 +106,7 @@ namespace Speakr.Controllers
                     talk.YouDownVoted = true;
                 }
 
+                session.Store(user);
                 session.SaveChanges();
                 return talk;
             }
