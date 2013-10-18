@@ -12,7 +12,7 @@ namespace Speakr.Models
             this.Ratings = new List<TalkRating>();
         }
 
-        public string Email { get; set; }
+        public string SessionId { get; set; }
         public List<TalkRating> Ratings { get; set; }
     }
 }

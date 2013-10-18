@@ -12,16 +12,20 @@ namespace Speakr.Models
         public string Author { get; set; }
         public string AuthorInfo { get; set; }
         public string Description { get; set; }
-        public float Stars { get; set; }
-        public int TotalRanking { get; set; }
         public DateTime DateTime { get; set; }
         public string PhotoUrl { get; set; }
         public string Room { get; set; }
-        public int VoteCount { get; set; }
         public string AuthorTwitter { get; set; }
 
+        public int Ranking { get; set; }
+        public int UpVotes { get; set; }
+        public int DownVotes { get; set; }
+
         [Raven.Imports.Newtonsoft.Json.JsonIgnore]
-        public int YouVoted { get; set; }
+        public bool YouUpVoted { get; set; }
+
+        [Raven.Imports.Newtonsoft.Json.JsonIgnore]
+        public bool YouDownVoted { get; set; }
 
         [Raven.Imports.Newtonsoft.Json.JsonIgnore]
         public string Time

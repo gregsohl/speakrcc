@@ -8,6 +8,6 @@ namespace Speakr.Models
     public class TalkRating
     {
         public string TalkId { get; set; }
-        public int Stars { get; set; }
+        public bool UpVote { get; set; }
     }
 }

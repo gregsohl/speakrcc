@@ -2,11 +2,9 @@
 {
     font-size: 72px;
     font-family: 'Press Start 2P', cursive;
-    -webkit-text-shadow: 1px 1px 3px rgb(90,90,90);
-    text-shadow: 1px 1px 3px rgb(90,90,90);
 }
 
-.jumbotron h1::first-letter {
+.jumbotron h1:first-letter {
     color: #317EAC;
     -webkit-text-shadow: 3px 3px 5px rgb(90,90,90);
     text-shadow: 3px 3px 5px rgb(90,90,90);
@@ -49,11 +47,48 @@
     font-family: 'Nobile', sans-serif;
 }
 
-#star {
+.rating {
+    padding-top: 40px;
+    text-align: center;
+}
+
+.rating .number {
+    margin-top: -15px;
+}
+
+.up-down-vote
+{
+    font-size: 60px;
+    color: rgb(129, 129, 133);
+    line-height: 20px;
+    cursor: pointer;
+    -moz-transition: color linear .1s;
+    -o-transition: color linear .1s;
+    -webkit-transition: color linear .1s;
+    transition: color linear .1s;
+}
+
+.up-down-vote:hover {
+    color: rgb(250, 162, 78);
+}
+
+.positive-votes {
+    color: green;
+}
+
+.negative-votes {
+    color: maroon;
 }
 
 .speaker-name {
     font-size: 20px;
+}
+
+.vote-checked
+{
+    color: rgb(254,122,21);
+    -webkit-text-shadow: 2px 2px 3px rgba(254,122,21,.3), -2px -2px 3px rgba(254,122,21,.3);
+    text-shadow: 2px 2px 3px rgba(254,122,21,.3), -2px -2px 3px rgba(254,122,21,.3);
 }
 
 body {

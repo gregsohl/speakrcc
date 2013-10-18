@@ -10,10 +10,9 @@
             <li class="active"><a href="#">Leaderboard</a></li>
         </ul>
         <ul class="nav navbar-nav navbar-right">
+            <li><a href="http://github.com/judahgabriel/speakrcc">Fork me on GitHub</a></li>
             <li><a href="http://twitter.com/tccodecamp">@@tccodecamp</a></li>
             <li><a href="http://twitter.com/speakrcc">@@speakrcc</a></li>
-            <li data-bind="visible: !loggedInUserName()"><a href="#" data-bind="click: login">Login</a></li>
-            <li data-bind="visible: loggedInUserName"><a href="#" title="You're signed in. Click to logout." data-bind="    click: logout">@ViewBag.UserName</a></li>
         </ul>
     </div>
 </nav>
@@ -32,17 +31,24 @@
 </div>
 <div class="container talks-container" data-bind="template: { foreach: allTalks, afterRender: $root.afterRender.bind($root) }, visible: allTalks().length > 0">
     <div class="talk row" data-bind="visible: isVisible">
+        <div class="col-md-1">
+            <div class="row rating container">
+                <i class="up-down-vote icon-sort-up" title="Up vote this talk!" data-bind="click: upVote, css: { 'vote-checked': youUpVoted }"></i>
+                <h2 class="number" data-bind="css: { 'positive-votes': ranking() > 0, 'negative-votes': ranking() < 0 }">
+                    <span data-bind="visible: ranking() > 0">+</span>
+                    <span data-bind="text: ranking" title="This is the total ranking for this talk: up vote = +1, down vote = -1"></span>
+                </h2>
+                <i class="up-down-vote icon-sort-down" title="Down vote this talk!" data-bind="click: downVote, css: { 'vote-checked': youDownVoted }"></i>
+            </div>
+        </div>
         <div class="col-md-2">
-            <img class="img-circle speaker-image" data-toggle="tooltip" data-bind="attr: { src: photoUrl }" />
+            <div class="row">
+                <img class="img-circle speaker-image" data-toggle="tooltip" data-bind="attr: { src: photoUrl }" />
+            </div>
         </div>
         <div class="col-md-9">
             <div class="row">
                 <h1 style="display:inline-block;" data-bind="text: title"></h1>
-                <h2 class="text-info">
-                    <span>Rank:</span>
-                    <span class="text-success" data-bind="visible: totalRanking() > 0">+</span>
-                    <span data-bind="text: totalRanking, css: { 'text-success': totalRanking() > 0, 'text-danger': totalRanking() < 0 }"></span>
-                </h2>
             </div>
             <div class="row">
                 <span class="speaker-name text-info " data-bind="text: author"></span>
@@ -56,16 +62,6 @@
             </div>
             <div class="row" style="padding-bottom: 10px; padding-top: 10px;">
                 <p class="description" data-bind="text: description"></p>
-            </div>
-            <div class="row">
-                <div class="star-ranking"></div>
-            </div>
-            <div class="row">
-                <span data-bind="text: '(' + voteCount() + ' user' + (voteCount() !== 1 ? 's voted)' : ' voted)')"></span>
-            </div>
-            <div class="row" data-bind="visible: youVoted() !== 0">
-                <span class="text-muted">You voted</span>
-                <span data-bind="text: youVoted"></span>
             </div>
         </div>
     </div>
@@ -95,7 +91,7 @@
 <script type="text/javascript">
 
     $(function () {
-        var viewModel = new speakr("@ViewBag.UserName");
+        var viewModel = new speakr();
         ko.applyBindings(viewModel);
     });
 
