@@ -11,9 +11,11 @@ class speakr {
 
     allTalks = ko.observableArray<talk>();
     searchText = ko.observable<string>();
+	hashSpeaker = "";
 
-    constructor(loggedInUserName: string) {
-        this.fetchTalks();
+    constructor() {
+		this.hashSpeaker = window.location.hash;
+		this.fetchTalks();
         this.searchText
             .extend({ throttle: 250 })
             .subscribe(search => this.filterTalks(search));
@@ -22,7 +24,12 @@ class speakr {
     fetchTalks() {
         $.getJSON("/API/Talks/GetAll").then(result => {
             var objects = result.map(dto => new talk(dto));
-            this.allTalks(objects);
+			this.allTalks(objects);
+
+			if (this.hashSpeaker && this.hashSpeaker.length > 1) {
+				this.searchText(this.hashSpeaker.substring(1));
+				this.hashSpeaker = null;
+			}
         });
     }
 

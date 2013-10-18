@@ -14,5 +14,7 @@ namespace Speakr.Models
 
         public string SessionId { get; set; }
         public List<TalkRating> Ratings { get; set; }
+
+        public DateTime LastActivity { get; set; }
     }
 }

@@ -1,0 +1,25 @@
+﻿if (up && this.youUpVoted()) {
+    return;
+}
+
+if (!up && this.youDownVoted()) {
+    return;
+}
+
+var adjustment = 1;
+if (this.youDownVoted() || this.youUpVoted()) {
+    adjustment = 2;
+}
+
+this.youUpVoted(up);
+this.youDownVoted(!up);
+
+this.ranking(this.ranking() + (adjustment * (up ? 1 : -1)));
+
+$.post("/API/Talks/Rate", { talkId: this.id, upVote: up })
+    .fail(result => console.log("Oh noes! Unable to vote", result))
+    .done(savedTalk => {
+        this.ranking(savedTalk.ranking);
+        this.youUpVoted(savedTalk.youUpVoted);
+        this.youDownVoted(savedTalk.youDownVoted);
+    });

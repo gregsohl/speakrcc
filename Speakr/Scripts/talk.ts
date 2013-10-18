@@ -2,8 +2,9 @@
 
 class talk {
 
-    public title: string;
-    public author: string;
+	public title: string;
+	public author: string;
+	public authorTwitter: string;
     public description: string;
     public pictureUrl: string;
     public time: string;
@@ -27,7 +28,7 @@ class talk {
     }
 
     matchesFilter(filter: string): boolean {
-        return [this.title, this.author, this.time, this.room]
+        return this.id == filter || [this.title, this.author, this.time, this.room, this.authorTwitter]
             .map(i => i.toLowerCase())
             .some(textItem => textItem.indexOf(filter) >= 0);
     }
@@ -40,31 +41,7 @@ class talk {
         this.vote(false);
     }
 
-    vote(up: boolean) {
-        if (up && this.youUpVoted()) {
-            return;
-        }
-
-        if (!up && this.youDownVoted()) {
-            return;
-        }
-
-        var adjustment = 1;
-        if (this.youDownVoted() || this.youUpVoted()) {
-            adjustment = 2;
-        }
-
-        this.youUpVoted(up);
-        this.youDownVoted(!up);
-
-        this.ranking(this.ranking() + (adjustment * (up ? 1 : -1)));
-
-        $.post("/API/Talks/Rate", { talkId: this.id, upVote: up })
-            .fail(result => console.log("Oh noes! Unable to vote", result))
-            .done(savedTalk => {
-                this.ranking(savedTalk.ranking);
-                this.youUpVoted(savedTalk.youUpVoted);
-                this.youDownVoted(savedTalk.youDownVoted);
-            });
+	vote(up: boolean) {
+		$("#cannotVoteYet").modal();
     }
 }

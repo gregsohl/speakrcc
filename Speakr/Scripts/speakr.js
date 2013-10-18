@@ -3,10 +3,12 @@
 /// <reference path="typings/knockout/knockout.d.ts" />
 /// <reference path="typings/jquery/jquery.d.ts" />
 var speakr = (function () {
-    function speakr(loggedInUserName) {
+    function speakr() {
         var _this = this;
         this.allTalks = ko.observableArray();
         this.searchText = ko.observable();
+        this.hashSpeaker = "";
+        this.hashSpeaker = window.location.hash;
         this.fetchTalks();
         this.searchText.extend({ throttle: 250 }).subscribe(function (search) {
             return _this.filterTalks(search);
@@ -19,6 +21,11 @@ var speakr = (function () {
                 return new talk(dto);
             });
             _this.allTalks(objects);
+
+            if (_this.hashSpeaker && _this.hashSpeaker.length > 1) {
+                _this.searchText(_this.hashSpeaker.substring(1));
+                _this.hashSpeaker = null;
+            }
         });
     };
 

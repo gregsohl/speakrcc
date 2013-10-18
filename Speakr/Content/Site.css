@@ -42,6 +42,14 @@
     margin-bottom: 40px;
 }
 
+.talk-title:hover a {
+	display: inline-block;
+}
+
+.talk-title a {
+	display: none;
+}
+
 .talk .description {
     font-size: 16px;
     font-family: 'Nobile', sans-serif;

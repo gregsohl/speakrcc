@@ -7,7 +7,7 @@
     <!-- Collect the nav links, forms, and other content for toggling -->
     <div class="collapse navbar-collapse navbar-ex1-collapse">
         <ul class="nav navbar-nav">
-            <li class="active"><a href="#">Leaderboard</a></li>
+            <li class="active"><a href="/">Leaderboard</a></li>
         </ul>
         <ul class="nav navbar-nav navbar-right">
             <li><a href="http://github.com/judahgabriel/speakrcc">Fork me on GitHub</a></li>
@@ -48,7 +48,12 @@
         </div>
         <div class="col-md-9">
             <div class="row">
-                <h1 style="display:inline-block;" data-bind="text: title"></h1>
+                <h1 class="talk-title">
+					<span data-bind="text: title"></span>
+					<a data-bind="attr: { href: 'http://speakr.cc/#' + id }" title="Shareable link to this talk">
+						<i class="icon-link"></i>
+					</a>
+                </h1>
             </div>
             <div class="row">
                 <span class="speaker-name text-info " data-bind="text: author"></span>
