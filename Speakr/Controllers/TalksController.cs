@@ -37,6 +37,15 @@ namespace Speakr.Controllers
                             talk.YouDownVoted = !rating.UpVote;
                         }
 	                }
+
+                    foreach (var llamafied in user.LlamafiedTalks)
+                    {
+                        var talk = talks.FirstOrDefault(t => t.Id == llamafied);
+                        if (talk != null)
+                        {
+                            talk.YouLlamad = true;
+                        }
+                    }
                 }
 
                 return talks;
@@ -45,11 +54,6 @@ namespace Speakr.Controllers
         
         public Talk Rate(TalkRating talkRating)
         {
-            if (DateTime.Now.Day < 19)
-            {
-                throw new InvalidOperationException("Nice try, foo!");
-            }
-
             using (var session = RavenInstance.Db.OpenSession())
             {
                 var userSessionId = this.GetUserSessionId();
@@ -120,6 +124,31 @@ namespace Speakr.Controllers
 
                 session.SaveChanges();
                 return talk;
+            }
+        }
+
+        public void Llamafy(int unicorns, int flufferBerries, string talkId)
+        {
+            using (var session = RavenInstance.Db.OpenSession())
+            {
+                var userSessionId = this.GetUserSessionId();
+                if (userSessionId == null)
+                {
+                    throw new InvalidOperationException("No user session Id.");
+                }
+
+                var talk = session.Load<Talk>(talkId);
+                var user = session
+                    .Query<User>()
+                    .Customize(x => x.WaitForNonStaleResultsAsOfNow(TimeSpan.FromSeconds(2)))
+                    .First(u => u.SessionId == userSessionId);
+
+                if (!user.LlamafiedTalks.Contains(talkId) && talk != null)
+                {
+                    talk.Llamas += 1;
+                    user.LlamafiedTalks.Add(talkId);
+                    session.SaveChanges();
+                }
             }
         }
 

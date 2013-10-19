@@ -49,7 +49,7 @@ class speakr {
             title: sender.author,
             content: sender.authorInfo,
             placement: 'auto top',
-            delay: { show: 100, hide: 500 },
+            delay: { show: 100, hide: 250 },
             trigger: 'hover'
         });
     }

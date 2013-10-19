@@ -64,6 +64,12 @@
     margin-top: -15px;
 }
 
+.llama {
+    padding-left: 25px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
 .up-down-vote
 {
     font-size: 60px;

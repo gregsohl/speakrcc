@@ -20,6 +20,10 @@ namespace Speakr.Models
         public int Ranking { get; set; }
         public int UpVotes { get; set; }
         public int DownVotes { get; set; }
+        public int Llamas { get; set; }
+
+        [Raven.Imports.Newtonsoft.Json.JsonIgnore]
+        public bool YouLlamad { get; set; }
 
         [Raven.Imports.Newtonsoft.Json.JsonIgnore]
         public bool YouUpVoted { get; set; }
